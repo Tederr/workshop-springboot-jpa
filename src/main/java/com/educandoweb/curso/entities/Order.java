@@ -60,7 +60,7 @@ public class Order implements Serializable {
 	}
 
 	public Instant getMoment() {
-		return moment;
+		return moment; 
 	}
 
 	public void setMoment(Instant moment) {

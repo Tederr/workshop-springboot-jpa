@@ -39,7 +39,7 @@ public class Product implements Serializable {
 	
 	@OneToMany(mappedBy = "id.product")
 	private Set<OrderItem> items = new HashSet<>();
-	
+		
 	public Product() {
 	}
 
@@ -91,6 +91,20 @@ public class Product implements Serializable {
 	public void setImgUrl(String imgUrl) {
 		this.imgUrl = imgUrl;
 	}
+	
+	public Set<Category> getCategories() {
+		return categories;
+	}
+	
+	@JsonIgnore
+	public Set<Order> getOrders() {
+		Set<Order> set = new HashSet<>();
+		for (OrderItem x : items) {
+			set.add(x.getOrder());
+		}
+		return set;
+	}
+
 
 	@Override
 	public int hashCode() {
@@ -107,18 +121,5 @@ public class Product implements Serializable {
 			return false;
 		Product other = (Product) obj;
 		return Objects.equals(id, other.id);
-	}
-
-	public Set<Category> getCategories() {
-		return categories;
-	}
-	
-	@JsonIgnore
-	public Set<Order> getOrders() {
-		Set<Order> set = new HashSet<>();
-		for (OrderItem x : items) {
-			set.add(x.getOrder());
-		}
-		return set;
 	}
 }
